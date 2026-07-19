@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiran Goswami | Dev Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      
+     :root {
+    --primary: #00f2ff;
+    --secondary: #7c3aed;
+    --dark-bg: #030e12; 
+    --glass-bg: rgba(13, 17, 28, 0.75);
+    --text-white: #ffffff;
+    --text-muted: #8892b0;
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-dark: #0a0e14;
+    --blue-accent: #00f2ff;
+
+    --text-main: #ffffff;
+    --text-dim: #8892b0;
+    --border: rgba(255, 255, 255, 0.1);
+    --accent: #00f2ff;
+    --glass: rgba(255, 255, 255, 0.03);
+    --footer-bg: #010409;
+    --purple: #7c3aed;
+    --bg: #030712;
+}
+
+body.light-mode {
+
+--dark-bg:#030e12;
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --text-white: #0f172a;
+    --text-muted: #4d71a4;
+    --card-border: rgba(15, 23, 42, 0.1);
+    --card-dark: #ffffff;
+
+    /* 👇 Light mode ke liye inhi variables ki values */
+    --text-main: #0f172a;
+    --text-dim: #475569;
+    --border: rgba(15, 23, 42, 0.08);
+    --accent: #7c3aed;
+    --glass: rgba(15, 23, 42, 0.02);
+    --footer-bg: #f1f5f9;
+    --purple: #6d28d9;
+    --bg: #f8fafc;
+}
+
+html, body { max-width: 100%; overflow-x: hidden; margin: 0; padding: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+body { background-color: var(--dark-bg); color: var(--text-white); transition: all 0.3s ease; }
+
+/* --- DYNAMIC BACKGROUND --- */
+.bg-visuals { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+.shape { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 20s infinite alternate; }
+.shape-1 { width: 40vw; height: 40vw; background: var(--primary); top: -10%; left: -10%; }
+.shape-2 { width: 30vw; height: 30vw; background: var(--secondary); bottom: -10%; right: -10%; }
+@keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.1); } }
+
+/* --- MAIN NAVBAR CONTAINER (Dono elements ko line me lane ke liye) --- */
+
+ .navbar{
+    position:fixed;
+    top:18px;
+    left:0;
+    width:100%;
+    z-index:9999;
+    background:transparent;
+    display:flex;
+    justify-content:center;
+}
+.navbar-wrapper{
+    width:96%;
+    max-width:1650px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+/* --- 1. LOGO BRAND SECTION --- */
+.cs-premium-logo { 
+    display: flex;
+    align-items: center;
+}
+
+.cs-logo-wrap { display: flex; align-items: center; gap: 15px; text-decoration: none !important; }
+
+.cs-visual-orb { 
+    position: relative; 
+    width: 55px; height: 55px; 
+    display: flex; align-items: center; justify-content: center; 
+}
+
+.orb-layer-anim { 
+    position: absolute; border-radius: 50%; width: 100%; height: 100%; 
+    border: 2px solid transparent; animation: slowSpin 6s linear infinite; z-index: 3;
+}
+
+.orb-layer-static {
+    position: absolute; width: 85%; height: 85%;
+    border: 1px solid rgba(0, 242, 255, 0.15); border-radius: 50%; z-index: 2;
+}
+
+.orb-icon-box {
+    width: 70%; height: 70%; background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    z-index: 1; transition: all 0.4s ease;
+}
+
+.orb-icon { font-size: 16px; font-weight: 900; color: white; transition: all 0.3s ease; }
+
+/* Logo Hover Custom Animations */
+.cs-logo-wrap:hover .orb-icon-box { background: var(--blue-accent); box-shadow: 0 0 20px var(--blue-accent); }
+.cs-logo-wrap:hover .orb-icon { color: black !important; }
+
+@keyframes slowSpin {
+    0% { transform: rotate(0deg); border-top: 2px solid var(--primary); }
+    20% { border-top: 2px solid #ffffff; filter: drop-shadow(0 0 8px #ffffff); }
+    40% { border-top: 2px solid var(--primary); filter: none; }
+    100% { transform: rotate(360deg); border-top: 2px solid var(--primary); }
+}
+
+.cs-text-content { display: flex; flex-direction: column; }
+.cs-main-brand{
+    color:#ffffff;
+}
+
+.cs-tag-line{
+
+    font-size:.62rem;
+
+    margin-top:6px;
+}
+.cs-gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.cs-tag-line { font-size: 0.6rem; color: #94a3b8; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+.tag-line-dash { width: 15px; height: 2px; background: var(--primary); }
+
+/* --- 2. GLASS NAVIGATION BAR CAPSULE --- */
+.glass-card-nav{
+
+    flex:1;
+
+    margin-left:35px;
+
+     display:flex;
+    align-items:center;
+
+    justify-content:space-between;
+
+    height:64px;
+
+    padding:0 18px 0 28px;
+
+    background:rgba(13,17,28,.75);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:60px;
+
+}
+  /* --- ONLY NAVIGATION OVERRIDES (Baqi page ka color change nahi hoga) --- */
+/* =======================
+   PREMIUM NAVBAR
+=======================*/
+
+
+
+/* Logo */
+
+.cs-logo-wrap{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+}
+
+.cs-visual-orb{
+    width:48px;
+    height:48px;
+}
+
+.cs-main-brand{
+    font-size:1.15rem;
+    font-weight:800;
+}
+
+.cs-tag-line{
+    font-size:.58rem;
+    margin-top:4px;
+}
+
+/* Capsule */
+.navbar{
+    position:fixed;
+    top:18px;
+    left:0;
+    width:100%;
+    z-index:9999;
+    display:flex;
+    justify-content:center;
+    background:transparent;
+}
+
+.navbar-wrapper{
+
+    width:92%;
+    max-width:1500px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+}
+
+.navbar-nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.navbar-nav a:hover{
+    color:#00f2ff;
+}
+
+
+.navbar-nav{
+
+display:flex;
+
+align-items:center;
+
+gap:28px;
+
+list-style:none;
+
+margin:0;
+
+padding:0;
+
+}
+
+.navbar-nav a{
+
+color:white;
+
+font-size:17px;
+
+font-weight:600;
+
+text-decoration:none;
+
+padding:10px 0;
+
+transition:.3s;
+
+}
+.inner-actions{
+    display:flex;
+    align-items:center;      /* Center vertically */
+    justify-content:center;
+    gap:18px;
+    height:100%;
+    margin-left:30px;
+}
+
+.inner-actions .nav-link,
+.btn-cta{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    height:42px;
+
+}
+.btn-cta{
+    padding:12px 28px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#00f2ff,#7c3aed);
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    transition:.35s;
+    box-shadow:0 8px 25px rgba(0,242,255,.25);
+}
+
+.btn-cta:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(124,58,237,.35);
+}
+
+/* Premium Mode Switcher Layout matching Image 1 */
+.theme-switcher{
+    width:52px;
+    height:28px;
+    background:#1f2937;
+    border-radius:50px;
+    position:relative;
+    cursor:pointer;
+    transition:.3s;
+   
+}
+
+.toggle-ball{
+    position:absolute;
+    left:4px;
+    top:4px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.35s;
+}
+
+body.light-mode .theme-switcher{
+    background:#d1d5db;
+}
+
+body.light-mode .toggle-ball{
+    transform:translateX(24px);
+    background:#111827;
+    color:white;
+}
+
+.toggle-ball{
+
+    width:18px;
+
+    height:18px;
+}
+
+.toggle-ball { 
+    position: absolute; 
+    top: 2px; 
+    left: 3px; 
+    width: 18px; 
+    height: 18px; 
+    background: var(--text-white); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 0.7rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+/* Light mode shift animation */
+body.light-mode .toggle-ball { 
+    transform: translateX(22px); 
+    background: #0f172a; 
+    color: rgb(255, 255, 255); 
+}
+        /* Enhanced Hero Section */
+        
+        .hero{
+    max-width:1200px;
+    margin:auto;
+    padding-top:170px;
+    padding-bottom:60px;
+    text-align:center;
+}
+    
+
+        .hero h1 { 
+           font-size: clamp(2.8rem,6vw,4.2rem); /* --- TOP HEADING BADI AUR PREMIUM KI --- */
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(to bottom, #ffffff, #a1a1a1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2.5px;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p { 
+            color: var(--accent); 
+            font-size: 1.1rem; 
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .hero-line {
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+
+        /* Attractive Grid */
+        .grid {
+            max-width: 1200px; /* Grid width increased to support larger cards */
+            margin: 0 auto;
+            padding: 40px 20px 120px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Minimum card size scaled up */
+            gap: 30px; /* Spacing increased */
+        }
+
+        /* --- CARDS ATTRACTIVE AUR BADI KI HAIN --- */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px; /* More rounded luxury corners */
+            padding: 45px 35px; /* Spacing inside card expanded */
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 380px; /* Height increased slightly */
+        }
+
+        .card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 242, 255, 0.05));
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-12px); /* Higher float effect */
+            border-color: var(--accent);
+            box-shadow: 0 20px 45px rgba(0, 242, 255, 0.15); /* Soft neon cyan shadow */
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .icon {
+            font-size: 2.8rem; margin-bottom: 22px; 
+            filter: drop-shadow(0 0 12px rgba(0, 242, 255, 0.3));
+            display: inline-block;
+        }
+
+        .tag {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            display: block; margin-bottom: 10px;
+        }
+
+        .card h3 { 
+            margin-bottom: 14px; 
+            font-size: 1.55rem; 
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .card p { 
+            color: var(--text-dim); 
+            font-size: 0.98rem; 
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        /* Low Opacity Button */
+        .btn {
+            display: inline-block;
+            padding: 14px 24px;
+            background: rgba(0, 242, 255, 0.1); 
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-align: center;
+            border: 1px solid rgba(0, 242, 255, 0.15);
+            transition: all 0.3s;
+        }
+
+        .card:hover .btn {
+            background: var(--accent);
+            color: #000;
+            opacity: 1;
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.4);
+        }
+
+        /* --- NEW PREMIUM UNIVERSAL FOOTER STYLE --- */
+        .main-footer {
+            background: #03050a !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 80px 0 40px 0 !important;
+            width: 100% !important;
+            position: relative;
+            z-index: 10;
+            color: #fff;
+            text-align: left; /* Reset center text from previous styles */
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        .footer-grid {
+            display: grid !important;
+            grid-template-columns: 1.5fr 1fr 1fr !important; 
+            gap: 150px !important; /* Elements perfectly spread apart */
+            margin-bottom: 60px;
+            align-items: start;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo span { color: var(--accent); }
+
+        .brand p {
+            color: #94a3b8;
+            line-height: 1.8;
+            max-width: 380px;
+            font-size: 0.95rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .footer-section ul { 
+            list-style: none !important; 
+            padding: 0 !important; 
+            margin: 0 !important; 
+        }
+
+        .footer-section ul li { margin-bottom: 15px; }
+
+        .footer-section ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--accent);
+            transform: translateX(8px);
+        }
+
+        .footer-socials { display: flex; gap: 15px; margin-top: 30px; }
+
+        .footer-socials a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .footer-socials a:hover {
+            background: var(--accent);
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 242, 255, 0.3);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom strong { color: #fff; }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(34, 197, 94, 0.08);
+            padding: 8px 18px;
+            border-radius: 50px;
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e;
+        }
+
+        @media (max-width: 1100px) {
+            .footer-grid { gap: 60px !important; }
+            .footer-content { padding: 0 40px; }
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr !important; text-align: center; gap: 50px !important; }
+            .brand p { margin: 0 auto; }
+            .footer-socials { justify-content: center; }
+            .footer-section ul li a { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+   
+
+<nav class="navbar">
+
+    <div class="navbar-wrapper">
+
+        <!-- ================= LOGO ================= -->
+
+        <a class="cs-logo-wrap" href="../index.html">
+
+            <div class="cs-visual-orb">
+
+                <div class="orb-layer-anim"></div>
+
+                <div class="orb-layer-static"></div>
+
+                <div class="orb-icon-box">
+
+                    <span class="orb-icon">{ }</span>
+
+                </div>
+
+            </div>
+
+            <div class="cs-text-content">
+
+                <span class="cs-main-brand">
+    CODE<span class="cs-gradient-text">SPHERE</span>
+</span>
+
+                <div class="cs-tag-line">
+
+                    <div class="tag-line-dash"></div>
+
+                    <span>WELCOME TO CODESPHERE</span>
+
+                </div>
+
+            </div>
+
+        </a>
+
+        <!-- ================= NAVBAR ================= -->
+
+        <div class="glass-card-nav">
+
+            <ul class="navbar-nav">
+
+                <li>
+                    <a href="../index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="../roadmap/index.html">Roadmap</a>
+                </li>
+
+                <li>
+                    <a href="../website/index.html">Technologies</a>
+                </li>
+
+                <li>
+                    <a href="../learning/index.html";">Learning Hub</a>
+                </li>
+
+                <li>
+                    <a href="./index.html" class="active-hub">
+                        Projects
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../contact/index.html">Contact</a>
+                </li>
+
+            </ul>
+
+            <!-- ================= RIGHT SIDE ================= -->
+
+            <div class="inner-actions">
+
+                <a href="../login.html" class="nav-link" style="color:white ;text-decoration:none; font-weight:600;">
+                    Login
+                </a>
+
+                <a href="../learning/index.html" class="btn-cta">
+                    Start Learning
+                </a>
+
+                 <div class="theme-switcher" id="themeSwitcher">
+
+                    <div class="toggle-ball">
+
+                        <i class="fas fa-moon"></i>
+
+                    </div>
+
+                </div> 
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+    <header class="hero">
+        <p>Premium Learning Path</p>
+        <h1>Master Your Projects</h1>
+        <div class="hero-line">Explore high-quality web development roadmaps designed for real-world production.</div>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <div>
+                <span class="icon">💻</span>
+                <span class="tag">Frontend Architecture</span>
+                <h3>Advanced Portfolio</h3>
+                <p>Build a stunning, responsive portfolio that showcases your skills with modern UI/UX principles.</p>
+            </div>
+            <a href="https://www.google.com/search?q=modern+portfolio+development+tutorial" class="btn">View Roadmap</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="icon">🚀</span>
+                <span class="tag">Business UI</span>
+                <h3>Agency Showcase</h3>
+                <p>Learn to create high-converting landing pages for tech agencies and digital startups.</p>
+            </div>
+            <a href="https://www.google.com/search?q=responsive+agency+website+tutorial" class="btn">View Roadmap</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="icon">⚡</span>
+                <span class="tag">JS Logic</span>
+                <h3>Logic Quiz App</h3>
+                <p>Deep dive into JavaScript DOM manipulation and state management through a dynamic quiz system.</p>
+            </div>
+            <a href="https://www.google.com/search?q=javascript+quiz+app+tutorial" class="btn">View Roadmap</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="icon">📊</span>
+                <span class="tag">Dashboards</span>
+                <h3>Production SaaS</h3>
+                <p>Master complex layouts and data visualization using the latest Bootstrap 5 components.</p>
+            </div>
+            <a href="https://www.google.com/search?q=bootstrap+admin+dashboard+tutorial" class="btn">View Roadmap</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="icon">🔐</span>
+                <span class="tag">Backend Security</span>
+                <h3>Secure Auth System</h3>
+                <p>Implement industrial-standard login systems using PHP sessions and MySQL encryption.</p>
+            </div>
+            <a href="https://www.google.com/search?q=php+mysql+auth+system+tutorial" class="btn">View Roadmap</a>
+        </div>
+
+        <div class="card">
+            <div>
+                <span class="icon">🗄️</span>
+                <span class="tag">Database Design</span>
+                <h3>Inventory Engine</h3>
+                <p>Create a full-scale CRUD application to manage complex database relationships and queries.</p>
+            </div>
+            <a href="https://www.google.com/search?q=php+mysql+crud+tutorial" class="btn">View Roadmap</a>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section brand">
+                    <div class="footer-logo">CODE<span>SPHERE</span></div>
+                    <p>Leading the next generation of web development with futuristic learning paths and premium code quality.</p>
+                    <div class="footer-socials">
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-terminal"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-book-open"></i> Courses</a></li>
+                        <li><a href="#"><i class="fas fa-map-signs"></i> Roadmaps</a></li>
+                        <li><a href="#"><i class="fas fa-code"></i> Playground</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-file-contract"></i> Terms</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> Support Hub</a></li>
+                        <li><a href="#"><i class="fas fa-user-friends"></i> Community</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2026 <span>CodeSphere</span> by <strong>Kiran Goswami</strong>. All Rights Reserved.
+                </div>
+                <div class="system-status">
+                    <span class="status-dot"></span> All Systems Operational
+                </div>
+            </div>
+        </div>
+    </footer>
+     <script>
+        
+
+const switcher=document.getElementById("themeSwitcher");
+
+switcher.onclick=function(){
+
+document.body.classList.toggle("light-mode");
+
+localStorage.setItem(
+"theme",
+document.body.classList.contains("light-mode")
+?"light":"dark"
+);
+
+};
+
+if(localStorage.getItem("theme")=="light"){
+
+document.body.classList.add("light-mode");
+
+}
+
+</script>
+     </script>
+
+</body>
+</html>

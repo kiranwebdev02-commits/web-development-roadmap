@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>CodeSphere Elite | Zero to Pro 2026</title>
+
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<!-- BOOTSTRAP -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+
+<style>
+
+
+:root{
+    --primary:#00cfff;
+    --secondary:#8b5cf6;
+    --bg-body:#030712;
+    --card-bg:rgba(15,23,42,0.7);
+    --border:rgba(255,255,255,0.1);
+    --text-main:#ffffff;
+    --text-gray:#94a3b8;
+    --nav-bg:rgba(10,15,35,0.8);
+    --glass-bg:rgba(13,17,28,0.75);
+}
+
+[data-theme="light"]{
+    --primary:#d946ef;
+    --secondary:#8b5cf6;
+    --bg-body:#f8fafc;
+    --card-bg:rgba(255,255,255,0.9);
+    --border:rgba(0,0,0,0.1);
+    --text-main:#0f172a;
+    --text-gray:#475569;
+    --nav-bg:rgba(255,255,255,0.95);
+    --glass-bg:rgba(255,255,255,0.85);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+html,
+body{
+    overflow-x:hidden;
+    scroll-behavior:smooth;
+    width: 100%; /* SCROLL FIX */
+}
+
+body{
+    background:var(--bg-body);
+    color:var(--text-main);
+    transition:.3s ease;
+}
+
+/* 
+   MAGIC FIX: EXACT 75% BROWSER ZOOM SIMULATION 
+   This guarantees 100% matching aesthetics and spacing 
+*/
+@media (min-width: 992px) {
+    .page-scaler {
+        zoom: 0.75; 
+        transform-origin: top center;
+    }
+}
+
+/* =========================
+BACKGROUND BLOBS
+========================= */
+
+.bg-blobs{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    overflow:hidden;
+}
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.18;
+    animation:move 15s infinite alternate;
+}
+
+.blob-1{
+    width:500px;
+    height:500px;
+    background:var(--primary);
+    top:-10%;
+    left:-10%;
+}
+
+.blob-2{
+    width:450px;
+    height:450px;
+    background:var(--secondary);
+    bottom:-10%;
+    right:-10%;
+}
+
+@keyframes move{
+    from{
+        transform:translate(0,0);
+    }
+    to{
+        transform:translate(50px,50px);
+    }
+}
+
+/* =========================
+NAVBAR
+========================= */
+ :root {
+            --primary: #00f2ff;
+            --secondary: #7c3aed;
+            --dark-bg: #030712; /* Wahi purana dark mode color */
+            --glass-bg: rgba(13, 17, 28, 0.75);
+            --text-white: #ffffff;
+            --card-border: rgba(255, 255, 255, 0.1);
+            --blue-accent: #00f2ff; 
+        }
+
+        body.light-mode {
+            --dark-bg: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --text-white: #0f172a;
+            --card-border: rgba(15, 23, 42, 0.1);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-white);
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar { margin-top: 15px; padding: 10px 0; }
+
+        /* --- LOGO SECTION (AS PER IMAGE) --- */
+        .cs-premium-logo { margin-left: 5%; }
+        .cs-logo-wrap { display: flex; align-items: center; gap: 15px; text-decoration: none !important; }
+        
+        .cs-visual-orb { 
+            position: relative; 
+            width: 55px; height: 55px; 
+            display: flex; align-items: center; justify-content: center; 
+        }
+
+        /* 1. Outer Animation Circle (Slow & Color Pulse) */
+        .orb-layer-anim { 
+            position: absolute; 
+            border-radius: 50%; 
+            width: 100%; height: 100%; 
+            border: 2px solid transparent;
+            animation: slowSpin 6s linear infinite; 
+            z-index: 3;
+        }
+
+        /* 2. Static Middle Circle */
+        .orb-layer-static {
+            position: absolute;
+            width: 85%; height: 85%;
+            border: 1px solid rgba(0, 242, 255, 0.15);
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        /* 3. Inner Box with {} */
+        .orb-icon-box {
+            width: 70%; height: 70%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+
+        .orb-icon { 
+            font-size: 16px; 
+            font-weight: 900; 
+            color: white; 
+            transition: all 0.3s ease; 
+        }
+        
+        /* Hover: Brackets become BLACK and background glows BLUE */
+        .cs-logo-wrap:hover .orb-icon-box {
+            background: var(--blue-accent);
+            box-shadow: 0 0 20px var(--blue-accent);
+        }
+
+        .cs-logo-wrap:hover .orb-icon {
+            color: black !important;
+        }
+
+        /* Animation: Slow spin with white light pulse at the top */
+        @keyframes slowSpin {
+            0% { transform: rotate(0deg); border-top: 2px solid var(--primary); }
+            20% { border-top: 2px solid #ffffff; filter: drop-shadow(0 0 8px #ffffff); }
+            40% { border-top: 2px solid var(--primary); filter: none; }
+            100% { transform: rotate(360deg); border-top: 2px solid var(--primary); }
+        }
+
+        /* Brand Text */
+        .cs-text-content { display: flex; flex-direction: column; }
+        .cs-main-brand { 
+            font-size: 1.8rem; 
+            font-weight: 900; 
+            color: var(--text-white); 
+            letter-spacing: -1.2px; 
+            line-height: 0.9; 
+        }
+        .cs-gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .cs-tag-line { 
+            font-size: 0.6rem; 
+            color: #94a3b8; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            margin-top: 8px; 
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .tag-line-dash { width: 15px; height: 2px; background: var(--primary); }
+
+        /* --- GLASS CARD NAVIGATION --- */
+        .glass-card-nav {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border-radius: 100px;
+            border: 1px solid var(--card-border);
+            padding: 8px 10px 8px 30px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .navbar-nav { gap: 5px; }
+        .nav-link { color: var(--text-white) !important; font-size: 0.95rem; font-weight: 600; padding: 10px 15px !important; opacity: 0.8; }
+        .nav-link:hover { opacity: 1; color: var(--primary) !important; }
+
+        .active-hub {
+            background: rgba(124, 58, 237, 0.1) !important;
+            border: 1px solid rgba(124, 58, 237, 0.2) !important;
+            border-radius: 50px;
+            color: var(--text-white) !important;
+            display: flex; align-items: center; gap: 8px; padding: 8px 20px !important;
+        }
+        .nav-dot { width: 6px; height: 6px; background: var(--secondary); border-radius: 50%; }
+
+        .inner-actions { display: flex; align-items: center; gap: 15px; margin-left: 30px; }
+        .btn-cta {
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            color: #fff !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none !important;
+        }
+
+        .theme-switcher { width: 46px; height: 24px; background: rgba(100, 116, 139, 0.2); border-radius: 50px; position: relative; cursor: pointer; border: 1px solid var(--card-border); }
+        .toggle-ball { position: absolute; top: 2px; left: 3px; width: 18px; height: 18px; background: var(--text-white); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s ease; }
+        body.light-mode .toggle-ball { transform: translateX(22px); }
+
+       @media (max-width: 991px) {
+    /* Is se white background remove ho jayega */
+    .navbar-collapse {
+        background: transparent !important; /* Background khatam karne ke liye */
+        border: none !important;           /* Border khatam karne ke liye */
+        box-shadow: none !important;       /* Shadow khatam karne ke liye */
+        backdrop-filter: none !important;  /* Blur effect khatam karne ke liye */
+        padding: 10px 0;
+    }
+
+    /* Agar aap chahte hain ke sirf menu items ke gird glass effect ho */
+    .glass-card-nav {
+        background: var(--glass-bg); /* Sirf navigation links wali card ka background rahay */
+        backdrop-filter: blur(20px);
+        border-radius: 25px;
+        padding: 20px;
+        border: 1px solid var(--card-border);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Buttons aur links ko mobile par adjust karne ke liye */
+    .inner-actions {
+        margin-left: 0;
+        margin-top: 15px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+    /* Hero Section */
+    .hero{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      min-height:100vh;
+      padding:60px 8%;
+      gap:40px;
+    }
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+    min-height:85vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px 20px;
+}
+
+.hero h1{
+    font-size:clamp(40px,7vw,85px);
+    font-weight:900;
+    line-height:1.1;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    max-width:700px;
+    color:var(--text-gray);
+    font-size:16px;
+    line-height:1.8;
+}
+
+.scroll-down{
+    margin-top:30px;
+    text-decoration:none;
+    color:var(--text-main);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+/* =========================
+ROADMAP
+========================= */
+
+.roadmap-container{
+    max-width:1250px;
+    margin:auto;
+    padding:20px;
+}
+/* =========================
+   PREMIUM CARD STYLING FIX
+   OLD CARD CSS KO REPLACE KRO
+========================= */
+
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    align-items: stretch;
+}
+
+.card {
+    position: relative;
+    background: linear-gradient(
+        180deg,
+        rgba(6, 16, 40, 0.95),
+        rgba(3, 8, 25, 0.98)
+    );
+
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 30px;
+
+    padding: 34px 30px 22px;
+
+    min-height: 430px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: all 0.45s ease;
+
+    backdrop-filter: blur(20px);
+}
+
+/* TOP GLOW */
+.card::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+    linear-gradient(
+        135deg,
+        rgba(0,255,255,0.08),
+        transparent,
+        rgba(139,92,246,0.08)
+    );
+
+    opacity: 0;
+    transition: 0.5s ease;
+}
+
+.card:hover::before{
+    opacity: 1;
+}
+
+/* HOVER EFFECT */
+.card:hover{
+    transform: translateY(-12px);
+    border-color: rgba(0,255,255,0.25);
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.35),
+    0 0 35px rgba(0,255,255,0.10);
+}
+
+/* =========================
+   STEP + ICON ROW
+========================= */
+
+.card-head{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+/* STEP TAG */
+.card-head span{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+
+    padding: 8px 14px;
+
+    background: rgba(0,207,255,0.12);
+
+    border: 1px solid rgba(0,207,255,0.15);
+
+    border-radius: 10px;
+
+    color: #00e5ff;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
+}
+
+/* ICON */
+.card-icon{
+    font-size: 52px;
+    margin: 0;
+
+    transition: 0.4s ease;
+}
+
+.card:hover .card-icon{
+    transform: scale(1.1);
+}
+
+/* =========================
+   HEADING FIX
+========================= */
+
+.card h3{
+    font-size: 2rem;
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    margin-bottom: 30px;
+
+    color: #f8fafc;
+
+    letter-spacing: -1px;
+}
+
+/* =========================
+   LIST STYLING
+========================= */
+
+.topics{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.topics li{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 18px;
+
+    color: #aeb8d0;
+
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.topics li i{
+    color: #00e5ff;
+    font-size: 14px;
+}
+
+/* =========================
+   FOOTER FIX
+========================= */
+
+.card-foot{
+    margin-top: auto;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    padding-top: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #9aa4be;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .roadmap-grid{
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .card{
+        min-height: auto;
+        padding: 28px 24px 22px;
+    }
+
+    .card h3{
+        font-size: 1.8rem;
+    }
+
+    .card-icon{
+        font-size: 46px;
+    }
+
+    .topics li{
+        font-size: 15px;
+    }
+
+    .card-foot{
+        font-size: 14px;
+    }
+}
+
+@media(max-width:480px){
+
+    .card{
+        border-radius: 24px;
+        padding: 25px 20px;
+    }
+
+    .card-top{
+        margin-bottom: 18px;
+    }
+
+    .card-head span{
+        font-size: 12px;
+        padding: 7px 12px;
+    }
+
+    .card h3{
+        font-size: 1.6rem;
+        margin-bottom: 25px;
+    }
+
+    .topics li{
+        font-size: 14px;
+        gap: 12px;
+    }
+
+    .card-icon{
+        font-size: 42px;
+    }
+}
+/* =========================
+FOOTER
+========================= */
+
+       /* --- FOOTER CSS --- */
+.main-footer {
+    background: #03050a;
+    position: relative;
+    padding: 80px 0 30px;
+    border-top: 1px solid rgba(0, 242, 255, 0.1);
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 50px;
+}
+
+/* Logo & Brand */
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+}
+
+.footer-logo span { color: var(--accent); }
+
+.brand p {
+    color: #94a3b8;
+    line-height: 1.7;
+    max-width: 350px;
+}
+
+/* Links & Icons */
+.footer-section h4 {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-section ul { list-style: none; padding: 0; }
+.footer-section ul li { margin-bottom: 12px; }
+
+.footer-section ul li a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-section ul li a i {
+    font-size: 0.8rem;
+    color: rgba(0, 242, 255, 0.5);
+}
+
+.footer-section ul li a:hover {
+    color: var(--accent);
+    transform: translateX(5px);
+}
+
+/* Social Buttons */
+.footer-socials { display: flex; gap: 15px; margin-top: 25px; }
+
+.footer-socials a {
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.footer-socials a:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 242, 255, 0.3);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #475569;
+    font-size: 0.85rem;
+}
+
+.footer-bottom strong { color: #fff; font-weight: 600; }
+
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(34, 197, 94, 0.05);
+    padding: 6px 15px;
+    border-radius: 20px;
+    color: #22c55e;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #22c55e;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .brand p { margin: 0 auto; }
+    .footer-socials { justify-content: center; }
+    .footer-section ul li a { justify-content: center; }
+    .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+}
+
+@media(max-width:768px){
+
+    .hero{
+        min-height:auto;
+        padding:100px 15px 50px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .card{
+        min-height:auto;
+    }
+
+    .cs-main-brand{
+        font-size:1.4rem;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .glass-card-nav{
+        padding:18px;
+    }
+
+    .btn-cta{
+        padding:12px 16px;
+    }
+
+}
+
+</style>
+</head>
+
+<body data-theme="dark">
+
+<!-- BACKGROUND -->
+<div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+</div>
+
+<div class="page-scaler">
+
+<!-- =========================================
+     PREMIUM LOGO
+========================================= -->
+  
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="cs-premium-logo">
+                <a href="#" class="cs-logo-wrap">
+                    <div class="cs-visual-orb">
+                        <div class="orb-layer-anim"></div>
+                        <div class="orb-layer-static"></div>
+                        <div class="orb-icon-box">
+                            <div class="orb-icon">{ }</div>
+                        </div>
+                    </div>
+                    <div class="cs-text-content">
+                        <div class="cs-main-brand">CODE<span class="cs-gradient-text">SPHERE</span></div>
+                        <div class="cs-tag-line d-none d-sm-flex">
+                            <div class="tag-line-dash"></div> WELCOME TO CODESPHERE
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="fas fa-bars-staggered text-white"></i>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+                <div class="glass-card-nav">
+                    <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="../roadmap/index.html">Roadmap</a></li>
+    <li class="nav-item"><a class="nav-link" href="../website/index.html">Technologies</a></li>
+    <li class="nav-item"><a class="nav-link" href="../learning/index.html">Learning Hub</a></li>
+    <li class="nav-item"><a class="nav-link" href="../project/index.html">Projects</a></li>
+    <li class="nav-item"><a class="nav-link" href="../contact/index.html">Contact</a></li>
+</ul>
+                    <div class="inner-actions">
+                        <a href="../login.html" class="action-login" style="color: white;text-decoration: none;">Login</a>
+                        <a href="../learning/index.html" class="btn-cta">Start Learning</a>
+                        <div class="theme-switcher" id="themeToggle">
+                            <div class="toggle-ball"><i id="icon" class="fas fa-moon"></i></div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+<!-- HERO -->
+<section class="hero" data-aos="fade-down">
+
+<h1>
+Master Full Stack <br>
+<span>Web Development</span><br>
+From Zero to Pro
+</h1>
+
+<p>
+The definitive 2026 roadmap to becoming a world-class engineer.
+Built for modern performance and futuristic learning.
+</p>
+
+<a href="#roadmap" class="scroll-down">
+<span>Begin Journey</span>
+<i class="fas fa-chevron-down"></i>
+</a>
+
+</section>
+
+
+<main class="roadmap-container" id="roadmap">
+
+<div class="roadmap-grid">
+
+    <!-- 1 HTML -->
+    <div class="card" id="html" data-aos="fade-up">
+        <div class="card-head">
+            <span>Step 01</span>
+
+            <i class="fa-brands fa-html5 card-icon" style="color:#e34f26;"></i>
+
+            <h3>HTML5 Structure</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Semantic Markup</li>
+                <li><i class="fa-solid fa-check"></i> SEO Best Practices</li>
+                <li><i class="fa-solid fa-check"></i> Forms & Validation</li>
+            </ul>
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Beginner</span>
+            <span>1 Week</span>
+        </div>
+    </div>
+
+    <!-- 2 CSS -->
+    <div class="card" id="css" data-aos="fade-up" data-aos-delay="50">
+        <div class="card-head">
+            <span>Step 02</span>
+
+            <i class="fa-brands fa-css3-alt card-icon" style="color:#1572b6;"></i>
+
+            <h3>Advanced CSS3</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Flexbox & CSS Grid</li>
+                <li><i class="fa-solid fa-check"></i> Keyframe Animations</li>
+                <li><i class="fa-solid fa-check"></i> Variables (Root)</li>
+            </ul>
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Beginner</span>
+            <span>2 Weeks</span>
+        </div>
+    </div>
+
+    <!-- 3 Bootstrap -->
+    <div class="card" id="bootstrap" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-head">
+
+            <span>Step 03</span>
+
+            <i class="fa-brands fa-bootstrap card-icon" style="color:#7952b3;"></i>
+
+            <h3>Bootstrap 5</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Container System</li>
+                <li><i class="fa-solid fa-check"></i> Modern UI Components</li>
+                <li><i class="fa-solid fa-check"></i> Utility-First Design</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Easy</span>
+            <span>1 Week</span>
+        </div>
+    </div>
+
+    <!-- 4 JavaScript -->
+    <div class="card" id="js" data-aos="fade-up">
+        <div class="card-head">
+
+            <span>Step 04</span>
+
+            <i class="fa-brands fa-js card-icon" style="color:#f7df1e;"></i>
+
+            <h3>JavaScript ES6+</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Async / Await</li>
+                <li><i class="fa-solid fa-check"></i> DOM Manipulation</li>
+                <li><i class="fa-solid fa-check"></i> ES6 Modules</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Intermediate</span>
+            <span>4 Weeks</span>
+        </div>
+    </div>
+
+    <!-- 5 jQuery -->
+    <div class="card" id="jquery" data-aos="fade-up" data-aos-delay="50">
+        <div class="card-head">
+
+            <span>Step 05</span>
+
+            <i class="fa-solid fa-bolt card-icon" style="color:#0769ad;"></i>
+
+            <h3>jQuery Power</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Fast AJAX Loading</li>
+                <li><i class="fa-solid fa-check"></i> Plugin Ecosystem</li>
+                <li><i class="fa-solid fa-check"></i> Rapid DOM Control</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Easy</span>
+            <span>1 Week</span>
+        </div>
+    </div>
+
+    <!-- 6 PHP -->
+    <div class="card" id="php" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-head">
+
+            <span>Step 06</span>
+
+            <i class="fa-brands fa-php card-icon" style="color:#777bb4;"></i>
+
+            <h3>PHP Core</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Server Side Logic</li>
+                <li><i class="fa-solid fa-check"></i> Security / Hashing</li>
+                <li><i class="fa-solid fa-check"></i> File Handling</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Hard</span>
+            <span>3 Weeks</span>
+        </div>
+    </div>
+
+    <!-- 7 MySQL -->
+    <div class="card" data-aos="fade-up">
+        <div class="card-head">
+
+            <span>Step 07</span>
+
+            <i class="fa-solid fa-database card-icon" style="color:#4479a1;"></i>
+
+            <h3>MySQL DB</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Database Relations</li>
+                <li><i class="fa-solid fa-check"></i> CRUD Operations</li>
+                <li><i class="fa-solid fa-check"></i> Query Optimization</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Intermediate</span>
+            <span>2 Weeks</span>
+        </div>
+    </div>
+
+    <!-- 8 React -->
+    <div class="card" data-aos="fade-up" data-aos-delay="50">
+        <div class="card-head">
+
+            <span>Step 08</span>
+
+            <i class="fa-brands fa-react card-icon" style="color:#61dafb;"></i>
+
+            <h3>React.js</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Hooks (useState)</li>
+                <li><i class="fa-solid fa-check"></i> Component Life Cycle</li>
+                <li><i class="fa-solid fa-check"></i> Redux State</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Hard</span>
+            <span>4 Weeks</span>
+        </div>
+    </div>
+
+    <!-- 9 Git -->
+    <div class="card" id="git" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-head">
+
+            <span>Step 09</span>
+
+            <i class="fa-brands fa-github card-icon"></i>
+
+            <h3>Git & Workflow</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Version Control</li>
+                <li><i class="fa-solid fa-check"></i> Branching Strategy</li>
+                <li><i class="fa-solid fa-check"></i> Open Source Collab</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Essential</span>
+            <span>1 Week</span>
+        </div>
+    </div>
+
+    <!-- 10 SASS -->
+    <div class="card" data-aos="fade-up">
+        <div class="card-head">
+
+            <span>Step 10</span>
+
+            <i class="fa-brands fa-sass card-icon" style="color:#cf649a;"></i>
+
+            <h3>SASS / SCSS</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Nested Styling</li>
+                <li><i class="fa-solid fa-check"></i> Mixins & Functions</li>
+                <li><i class="fa-solid fa-check"></i> Optimized Builds</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Intermediate</span>
+            <span>1 Week</span>
+        </div>
+    </div>
+
+    <!-- 11 REST API -->
+    <div class="card" data-aos="fade-up" data-aos-delay="50">
+        <div class="card-head">
+
+            <span>Step 11</span>
+
+            <i class="fa-solid fa-cloud-arrow-down card-icon" style="color:#00ff88;"></i>
+
+            <h3>Restful APIs</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> JSON Data Handling</li>
+                <li><i class="fa-solid fa-check"></i> Endpoints Design</li>
+                <li><i class="fa-solid fa-check"></i> Authentication</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Hard</span>
+            <span>2 Weeks</span>
+        </div>
+    </div>
+
+    <!-- 12 Deployment -->
+    <div class="card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-head">
+
+            <span>Step 12</span>
+
+            <i class="fa-solid fa-rocket card-icon" style="color:#ff4d4d;"></i>
+
+            <h3>Go Live</h3>
+
+            <ul class="topics">
+                <li><i class="fa-solid fa-check"></i> Netlify / Vercel</li>
+                <li><i class="fa-solid fa-check"></i> Domain & SSL</li>
+                <li><i class="fa-solid fa-check"></i> Performance Audit</li>
+            </ul>
+
+        </div>
+
+        <div class="card-foot">
+            <span>Level: Final</span>
+            <span>1 Week</span>
+        </div>
+    </div>
+
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="main-footer">
+    <div class="footer-overlay"></div>
+    <div class="footer-content">
+        <div class="footer-grid">
+            
+            <div class="footer-section brand">
+                <div class="footer-logo">CODE<span>SPHERE</span></div>
+                <p>Leading the next generation of web development with futuristic learning paths and premium code quality.</p>
+                <div class="footer-socials">
+                    <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-terminal"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-book-open"></i> Courses</a></li>
+                    <li><a href="../roadmap/index.html"><i class="fas fa-map-signs"></i> Roadmaps</a></li>
+                    <li><a href="#"><i class="fas fa-code"></i> Playground</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-file-contract"></i> Terms</a></li>
+                    <li><a href="#"><i class="fas fa-headset"></i> Support Hub</a></li>
+                    <li><a href="#"><i class="fas fa-user-friends"></i> Community</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; 2026 <span>CodeSphere</span> by <strong>Kiran Goswami</strong>. All Rights Reserved.
+            </div>
+            <div class="system-status">
+                <span class="status-dot"></span> All Systems Operational
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div> <!-- END PAGE SCALER -->
+
+<!-- SCRIPTS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+
+AOS.init({
+    duration:800,
+    once:true
+});
+
+/* =========================
+THEME TOGGLE FIX
+========================= */
+
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const icon = themeToggle.querySelector('i');
+            if(document.body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSphere | Future of Dev Learning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #03050a;
+            --card-bg: rgba(13, 17, 23, 0.7);
+            --accent: #00f2ff;
+            --accent-purple: #7000ff;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.03);
+            
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --glass-bg: rgba(13, 17, 23, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-white: #ffffff;
+            --blue-accent: #00f2ff;
+        }
+
+        /* --- LIGHT MODE CORE STYLES --- */
+        body.light-mode {
+            --bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-dim: #475569;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(15, 23, 42, 0.08);
+            --border: rgba(15, 23, 42, 0.08);
+            --text-white: #0f172a;
+            --glass: rgba(15, 23, 42, 0.02);
+        }
+
+        body.light-mode .cs-main-brand,
+        body.light-mode .nav-link,
+        body.light-mode .orb-icon,
+        body.light-mode .footer-logo,
+        body.light-mode .footer-bottom strong {
+            color: #0f172a !important;
+        }
+        body.light-mode .active-hub {
+            color: #7000ff !important;
+            background: rgba(112, 0, 255, 0.08) !important;
+        }
+        body.light-mode .hero h1 {
+            background: linear-gradient(to bottom, #0f172a 40%, #64748b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        body.light-mode .tech-card, 
+        body.light-mode .playground-box {
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        body.light-mode .navbar-toggler i {
+            color: #0f172a !important;
+        }
+        body.light-mode .circle {
+            background: #ffffff;
+            color: #0f172a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+
+        /* PREVENT HORIZONTAL SCROLL AND SCALE */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            font-size: 0.95rem; /* Overall slight scale down */
+        }
+
+        /* --- BACKGROUND MESH --- */
+        .mesh-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+            radial-gradient(circle at 20% 30%, rgba(112, 0, 255, 0.12) 0%, transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(0, 242, 255, 0.08) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        /* ADDED WRAPPER: Keeps elements nicely centered and balanced at 100% zoom */
+        .page-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* =========================================
+           NAVBAR GLOBAL CORE STRUCTURE
+        ========================================= */
+        .navbar { 
+            margin-top: 20px; /* Reduced */
+            padding: 8px 0; /* Reduced */
+            position: relative;
+            z-index: 1050;
+        }
+
+        /* Base Container Setup */
+        .nav-container-custom {
+            display: flex !important;
+            align-items: center !important;
+            width: 100%;
+        }
+
+        .cs-premium-logo { 
+            flex-shrink: 0;
+        }
+        .cs-logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none !important; } /* Reduced gap */
+        
+        .cs-visual-orb { 
+            position: relative; width: 42px; height: 42px; /* Reduced from 50px */
+            display: flex; align-items: center; justify-content: center; 
+        }
+
+        .orb-layer-anim { 
+            position: absolute; border-radius: 50%; width: 100%; height: 100%; 
+            border: 2px solid transparent; animation: slowSpin 6s linear infinite; z-index: 3;
+        }
+        .orb-layer-static {
+            position: absolute; width: 85%; height: 85%;
+            border: 1px solid rgba(0, 242, 255, 0.15); border-radius: 50%; z-index: 2;
+        }
+        .orb-icon-box {
+            width: 70%; height: 70%; background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1;
+        }
+        .orb-icon { font-size: 12px; font-weight: 900; color: white; } /* Reduced from 14px */
+        
+        @keyframes slowSpin {
+            0% { transform: rotate(0deg); border-top: 2px solid var(--primary); }
+            20% { border-top: 2px solid #ffffff; filter: drop-shadow(0 0 6px #ffffff); }
+            40% { border-top: 2px solid var(--primary); filter: none; }
+            100% { transform: rotate(360deg); border-top: 2px solid var(--primary); }
+        }
+
+        .cs-text-content { display: flex; flex-direction: column; }
+        .cs-main-brand { font-size: 1.35rem; font-weight: 900; color: var(--text-white); letter-spacing: -1px; line-height: 0.9; } /* Reduced from 1.6rem */
+        .cs-gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .cs-tag-line { font-size: 0.5rem; color: #94a3b8; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; font-weight: 600; display: flex; align-items: center; gap: 4px; } /* Reduced */
+        .tag-line-dash { width: 10px; height: 2px; background: var(--primary); } /* Reduced */
+
+        /* Menu Item Styling */
+        .navbar-nav { display: flex; align-items: center; gap: 4px; flex-direction: row; }
+        .nav-link { color: var(--text-white) !important; font-size: 0.85rem; font-weight: 600; padding: 6px 12px !important; opacity: 0.8; } /* Reduced */
+        .nav-link:hover { opacity: 1; color: var(--primary) !important; }
+
+        .active-hub {
+            background: rgba(112, 0, 255, 0.12) !important;
+            border: 1px solid rgba(112, 0, 255, 0.25) !important;
+            border-radius: 50px;
+            color: var(--text-white) !important;
+            display: flex; align-items: center; gap: 5px; padding: 5px 14px !important; /* Reduced */
+        }
+        .nav-dot { width: 4px; height: 4px; background: var(--secondary); border-radius: 50%; display: inline-block; }
+
+        /* Theme Switcher Button Global */
+        .theme-switcher { width: 38px; height: 20px; background: rgba(100, 116, 139, 0.2); border-radius: 50px; position: relative; cursor: pointer; border: 1px solid var(--card-border); flex-shrink: 0; } /* Reduced */
+        .toggle-ball { position: absolute; top: 2px; left: 3px; width: 14px; height: 14px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.25s ease; } /* Reduced */
+        .toggle-ball i { font-size: 8px; color: #03050a; } /* Reduced */
+        body.light-mode .toggle-ball { transform: translateX(16px); background: #0f172a; } /* Adjusted */
+        body.light-mode .toggle-ball i { color: #fff; }
+
+        /* Premium CTA Button General */
+        .btn-cta {
+            background: linear-gradient(135deg, #7000ff 0%, #00f2ff 100%) !important;
+            color: #ffffff !important;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700 !important;
+            font-size: 0.85rem !important; /* Reduced */
+            padding: 8px 20px !important; /* Reduced */
+            border-radius: 50px !important;
+            text-decoration: none !important;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3) !important;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease !important;
+            cursor: pointer;
+            flex-grow: 0 !important;
+            width: auto !important;
+        }
+        .btn-cta:hover {
+            transform: translateY(-2px) scale(1.02) !important;
+            box-shadow: 0 8px 25px rgba(0, 242, 255, 0.5), 0 0 10px rgba(112, 0, 255, 0.3) !important;
+            color: #ffffff !important;
+        }
+        .btn-cta:active { transform: translateY(1px) scale(0.98) !important; }
+
+        /* =========================================
+           DESKTOP LAYOUT (LARGE SCREENS)
+        ========================================= */
+        @media (min-width: 992px) {
+            .nav-container-custom {
+                justify-content: center !important;
+                gap: 30px !important; /* Reduced */
+            }
+
+            .navbar-toggler { display: none !important; }
+
+            .collapse.navbar-collapse {
+                display: flex !important;
+                flex-grow: 0 !important;
+                width: auto !important;
+            }
+
+            .glass-card-nav {
+                background: var(--glass-bg);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                border-radius: 100px;
+                border: 1px solid var(--card-border);
+                padding: 6px 20px 6px 24px; /* Reduced */
+                display: flex;
+                align-items: center;
+                gap: 25px !important; /* Reduced */
+                box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            }
+
+            .inner-actions {
+                display: flex;
+                align-items: center;
+                gap: 12px !important; /* Reduced */
+            }
+
+            .login-link {
+                margin-right: 5px !important;
+                text-decoration: none !important;
+                font-weight: 700;
+            }
+        }
+
+        /* =========================================
+           MOBILE & TABLET LAYOUT (RESPONSIVE FIX)
+        ========================================= */
+        @media (max-width: 991px) {
+            .navbar > .container-fluid {
+                padding: 0 20px !important;
+            }
+
+            .nav-container-custom {
+                justify-content: space-between !important; 
+                flex-wrap: nowrap !important;
+            }
+
+            .cs-premium-logo {
+                margin-right: auto !important; 
+            }
+
+            .navbar-toggler {
+                display: block !important;
+                border: none !important;
+                padding: 6px !important; /* Reduced */
+                background: transparent !important;
+                margin-left: 0 !important;
+            }
+            .navbar-toggler i { font-size: 1.5rem !important; } /* Reduced */
+            .navbar-toggler:focus { box-shadow: none !important; }
+
+            .collapse.navbar-collapse {
+                position: absolute !important;
+                top: 65px !important; /* Reduced */
+                left: 15px !important;
+                right: 15px !important;
+                width: calc(100% - 30px) !important;
+                z-index: 1090 !important;
+            }
+
+            .glass-card-nav {
+                background: rgba(13, 17, 23, 0.98) !important;
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
+                border-radius: 20px !important; /* Reduced */
+                padding: 24px !important; /* Reduced */
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 18px !important; /* Reduced */
+                width: 100% !important;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            }
+
+            body.light-mode .glass-card-nav {
+                background: rgba(255, 255, 255, 0.98) !important;
+                border: 1px solid rgba(15, 23, 42, 0.08) !important;
+            }
+
+            .navbar-nav {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                width: 100% !important;
+                gap: 10px !important; /* Reduced */
+            }
+
+            .nav-link {
+                width: 100% !important;
+                padding: 4px 0 !important;
+            }
+
+            .inner-actions {
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important; 
+                justify-content: flex-start !important;
+                gap: 12px !important; /* Reduced */
+                padding-top: 16px !important; /* Reduced */
+                border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+            }
+
+            body.light-mode .inner-actions {
+                border-top: 1px solid rgba(15, 23, 42, 0.06) !important;
+            }
+        }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 80vh; /* Reduced */
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 20px;
+        }
+        .hero h1 { font-size: clamp(2rem, 5.5vw, 4rem); font-weight: 800; line-height: 1.1; background: linear-gradient(to bottom, #fff 40%, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; } /* Reduced */
+        .hero p { color: var(--accent); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; font-size: 0.9rem; } /* Reduced */
+        .btn-primary { padding: 12px 28px; background: var(--text-main); color: var(--bg); text-decoration: none; border-radius: 50px; font-weight: 700; border: none; box-shadow: 0 10px 25px rgba(255,255,255,0.05); font-size: 0.9rem; } /* Reduced */
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255,255,255,0.1); }
+
+        /* --- TECH CARDS HOVER EFFECTS --- */
+        section { padding: 60px 5%; } /* Reduced */
+        .section-title { font-size: 2.4rem; margin-bottom: 35px; text-align: center; font-weight: 800; } /* Reduced */
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; } /* Reduced */
+        
+        .tech-card { 
+            background: var(--glass); 
+            border: 1px solid var(--border); 
+            padding: 28px 20px; /* Reduced */
+            border-radius: 16px; /* Reduced */
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .tech-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(0, 242, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        .tech-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.05), rgba(112, 0, 255, 0.05));
+            opacity: 0; transition: opacity 0.4s ease; z-index: 0;
+        }
+        .tech-card:hover::before { opacity: 1; }
+        .tech-card * { position: relative; z-index: 1; }
+
+        .tech-card i { font-size: 1.8rem; margin-bottom: 12px; color: var(--accent); transition: transform 0.3s ease; } /* Reduced */
+        .tech-card:hover i { transform: rotate(-5deg) scale(1.1); color: #ffffff; filter: drop-shadow(0 0 8px var(--accent)); }
+        .tech-card h3 { margin-bottom: 10px; font-size: 1.15rem; font-weight: 700; } /* Reduced */
+        .badge { font-size: 0.6rem; padding: 4px 8px; background: rgba(0, 242, 255, 0.1); border-radius: 20px; color: var(--accent); margin-right: 4px; } /* Reduced */
+
+        /* --- ROADMAP --- */
+        .roadmap-container { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; flex-wrap: wrap; gap: 15px; } /* Reduced */
+        .roadmap-step { text-align: center; flex: 1; min-width: 90px; cursor: pointer; } /* Reduced */
+        
+        .circle { 
+            width: 45px; height: 45px; border-radius: 50%; background: var(--bg); /* Reduced */
+            border: 2px solid var(--accent); display: flex; align-items: center; 
+            justify-content: center; margin: 0 auto 10px; font-weight: 700; font-size: 0.9rem; /* Reduced */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .roadmap-step:hover .circle {
+            transform: translateY(-6px) scale(1.15);
+            background-color: var(--accent);
+            color: #03050a !important;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+        }
+        .roadmap-step p { font-weight: 600; font-size: 0.9rem; transition: color 0.3s ease; } /* Reduced */
+        .roadmap-step:hover p { color: var(--accent); }
+
+        /* --- SANDBOX & FOOTER --- */
+        .playground-box { background: #0d1117; border-radius: 16px; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; height: 300px; overflow: hidden; } /* Reduced */
+        .editor-side { border-right: 1px solid var(--border); padding: 20px; font-family: 'Fira Code', monospace; font-size: 0.85rem; } /* Reduced */
+        .preview-side { background: white; color: black; padding: 20px; }
+        .preview-side h2 { font-size: 1.3rem !important; } /* Reduced */
+        @media (max-width: 768px) { .playground-box { grid-template-columns: 1fr; height: auto; } .editor-side { border-right: none; border-bottom: 1px solid var(--border); } }
+
+        /* --- FOOTER CSS --- */
+        .main-footer {
+            background: #03050a;
+            position: relative;
+            padding: 60px 0 25px; /* Reduced */
+            border-top: 1px solid rgba(0, 242, 255, 0.1);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px; /* Reduced */
+            margin-bottom: 40px; /* Reduced */
+        }
+
+        /* Logo & Brand */
+        .footer-logo {
+            font-size: 1.5rem; /* Reduced */
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 15px; /* Reduced */
+        }
+
+        .footer-logo span { color: var(--accent); }
+
+        .brand p {
+            color: #94a3b8;
+            line-height: 1.6; /* Reduced */
+            max-width: 320px; /* Reduced */
+            font-size: 0.9rem;
+        }
+
+        /* Links & Icons */
+        .footer-section h4 {
+            font-size: 1rem; /* Reduced */
+            margin-bottom: 20px; /* Reduced */
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section ul li { margin-bottom: 10px; } /* Reduced */
+
+        .footer-section ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem; /* Reduced */
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Reduced */
+        }
+
+        .footer-section ul li a i {
+            font-size: 0.8rem;
+            color: rgba(0, 242, 255, 0.5);
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        /* Social Buttons */
+        .footer-socials { display: flex; gap: 12px; margin-top: 20px; } /* Reduced */
+
+        .footer-socials a {
+            
+            width: 38px; /* Reduced */
+            height: 38px; /* Reduced */
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1rem; /* Reduced */
+            transition: 0.3s;
+        }
+
+        .footer-socials a:hover {
+       
+            background: var(--accent);
+            color: var(--blue-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.3);
+        }
+
+        /* Bottom Bar */
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px; /* Reduced */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #475569;
+            font-size: 0.8rem; /* Reduced */
+        }
+
+        .footer-bottom strong { color: #fff; font-weight: 600; }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.05);
+            padding: 5px 12px; /* Reduced */
+            border-radius: 20px;
+            color: #22c55e;
+            font-size: 0.8rem;
+        }
+
+        .status-dot {
+            width: 6px; /* Reduced */
+            height: 6px; /* Reduced */
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e;
+        }
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; } /* Reduced */
+            .brand p { margin: 0 auto; }
+            .footer-socials { justify-content: center; }
+            .footer-section ul li a { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; } /* Reduced */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mesh-gradient"></div>
+
+    <div class="page-wrapper">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <div class="nav-container-custom">
+                    
+                    <div class="cs-premium-logo">
+                        <a href="#" class="cs-logo-wrap">
+                            <div class="cs-visual-orb">
+                                <div class="orb-layer-anim"></div>
+                                <div class="orb-layer-static"></div>
+                                <div class="orb-icon-box">
+                                    <div class="orb-icon">{ }</div>
+                                </div>
+                            </div>
+                            <div class="cs-text-content">
+                                <div class="cs-main-brand">CODE<span class="cs-gradient-text">SPHERE</span></div>
+                                <div class="cs-tag-line d-none d-sm-flex">
+                                    <div class="tag-line-dash"></div> WELCOME TO CODESPHERE
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                        <i class="fas fa-bars-staggered text-white"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="mainNav">
+                        <div class="glass-card-nav">
+                            <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="../roadmap/index.html">Roadmap</a></li>
+    <li class="nav-item"><a class="nav-link" href="../website/index.html">Technologies</a></li>
+    <li class="nav-item"><a class="nav-link" href="../learning/index.html">Learning Hub</a></li>
+    <li class="nav-item"><a class="nav-link" href="../project/index.html">Projects</a></li>
+    <li class="nav-item"><a class="nav-link" href="../contact/index.html">Contact</a></li>
+</ul>
+                    <div class="inner-actions">
+                        <a href="../login.html" class="action-login" style="color: white;text-decoration: none;">Login</a>
+                        <a href="../learning/index.html" class="btn-cta">Start Learning</a>
+                        <div class="theme-switcher" id="themeToggle">
+                            <div class="toggle-ball"><i id="icon" class="fas fa-moon"></i></div>
+                        </div>
+                    </div>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <p>Intelligence in Every Pixel</p>
+            <h1>Code the Future.<br>Master the Web.</h1>
+            <div style="max-width: 550px; color: var(--text-dim); margin-bottom: 30px; font-size: 0.95rem;">
+                The world's most immersive learning platform for modern developers. 
+                From fundamental syntax to production-ready architectures.
+            </div>
+            <a href="#courses" class="btn-primary">START LEARNING NOW</a>
+        </header>
+
+        <section id="courses">
+            <h1 class="section-title">Master the Stack</h1>
+            <div class="categories-grid">
+                <div class="tech-card">
+                    <i class="fab fa-html5"></i>
+                    <div><span class="badge">Beginner</span> <span class="badge">4 Hours</span></div>
+                    <h3 class="mt-3">HTML5 Architecture</h3>
+                    <p style="color: var(--text-dim); margin-bottom: 15px; font-size: 0.9rem;">Master semantic structures and the backbone of modern web applications.</p>
+                    <a href="#" class="btn-primary" style="background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 0.75rem; padding: 8px 20px;">EXPLORE</a>
+                </div>
+                <div class="tech-card">
+                    <i class="fab fa-js"></i>
+                    <div><span class="badge">Intermediate</span> <span class="badge">12 Hours</span></div>
+                    <h3 class="mt-3">JavaScript Mastery</h3>
+                    <p style="color: var(--text-dim); margin-bottom: 15px; font-size: 0.9rem;">Deep dive into ES6+, Async programming, and DOM manipulation logic.</p>
+                    <a href="#" class="btn-primary" style="background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 0.75rem; padding: 8px 20px;">EXPLORE</a>
+                </div>
+                <div class="tech-card">
+                    <i class="fab fa-php"></i>
+                    <div><span class="badge">Advanced</span> <span class="badge">15 Hours</span></div>
+                    <h3 class="mt-3">Backend with PHP</h3>
+                    <p style="color: var(--text-dim); margin-bottom: 15px; font-size: 0.9rem;">Server-side logic, database integration, and secure authentication systems.</p>
+                    <a href="#" class="btn-primary" style="background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 0.75rem; padding: 8px 20px;">EXPLORE</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" style="background: rgba(0, 242, 255, 0.02);">
+            <h1 class="section-title">Your Path to Senior Dev</h1>
+            <div class="roadmap-container">
+                <div class="roadmap-step"><div class="circle">1</div><p>HTML5</p></div>
+                <div class="roadmap-step"><div class="circle">2</div><p>CSS3</p></div>
+                <div class="roadmap-step"><div class="circle">3</div><p>JS</p></div>
+                <div class="roadmap-step"><div class="circle">4</div><p>Bootstrap</p></div>
+                <div class="roadmap-step"><div class="circle">5</div><p>PHP/DB</p></div>
+                <div class="roadmap-step"><div class="circle">6</div><p>Projects</p></div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Live Code Sandbox</h2>
+            <div class="playground-box">
+                <div class="editor-side">
+                    <span style="color: #6a9955;">// Try changing the color below</span><br>
+                    <span style="color: #569cd6;">const</span> <span style="color: #9cdcfe;">CodeSphere</span> = () => {<br>
+                    &nbsp;&nbsp;console.log(<span style="color: #ce9178;">"Hello Future!"</span>);<br>
+                    };
+                </div>
+                <div class="preview-side">
+                    <h2 style="color: #03050a; font-weight:700; font-size:1.3rem;">Output Preview</h2>
+                    <p class="mt-2" style="font-size: 0.9rem;">Hello Future! The playground is ready for your code.</p>
+                </div>
+            </div>
+        </section>    
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-grid">
+                    <div class="footer-section brand">
+                        <div class="footer-logo">CODE<span>SPHERE</span></div>
+                        <p>Leading the next generation of web development with futuristic learning paths and premium code quality.</p>
+                        <div class="footer-socials">
+                            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-section links">
+                        <h4>Platform</h4>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-terminal"></i> Home</a></li>
+                            <li><a href="#"><i class="fas fa-book-open"></i> Courses</a></li>
+                            <li><a href="#"><i class="fas fa-map-signs"></i> Roadmaps</a></li>
+                            <li><a href="#"><i class="fas fa-code"></i> Playground</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section links">
+                        <h4>Resources</h4>
+                        <ul>
+                             <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li> 
+                            <li><a href="#"><i class="fas fa-file-contract"></i> Terms</a></li>
+                            <li><a href="#"><i class="fas fa-headset"></i> Support Hub</a></li>
+                            <li><a href="#"><i class="fas fa-user-friends"></i> Community</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="copyright">
+                        &copy; 2026 <span>CodeSphere</span> by <strong>Kiran Goswami</strong>. All Rights Reserved.
+                    </div>
+                    <div class="system-status">
+                        <span class="status-dot"></span> All Systems Operational
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth Working Theme Toggle Switcher
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const icon = themeToggle.querySelector('i');
+            if(document.body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        });
+    </script>
+    </body>
+</html>
